@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Nancy.Extensions;
 using Weather.Dto;
 using Weather.Models;
 using Weather.ServiceInterface;
@@ -21,7 +22,7 @@ namespace Weather.Controllers
         }
 
         [HttpPost]
-        public IActionResult SearchCity(AccuSearchCityViewModel model)
+        public IActionResult SearchCity(IndexViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -36,9 +37,8 @@ namespace Weather.Controllers
 
             dto.City = city;
 
-            await _accuWeatherServices.AccuWeatherResult(dto);
-
-
+            await _accuWeatherServices.AccuWeatherLocationResult(dto);
+            
 
             return View(dto);
         }

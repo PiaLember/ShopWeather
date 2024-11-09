@@ -92,6 +92,11 @@ namespace Weather.Dto
 
         [JsonPropertyName("Maximum")]
         public Maximum Maximum { get; set; }
+
+        public static implicit operator Temperature(double v)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public class Maximum

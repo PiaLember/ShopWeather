@@ -1,7 +1,9 @@
-﻿namespace Weather.Models
+﻿using Weather.Dto;
+
+namespace Weather.Models
 {
     public class AccuSearchCityViewModel
     {
-        public string City { get; set; }
+        public double Temperature  { get; set; }
     }
 }
