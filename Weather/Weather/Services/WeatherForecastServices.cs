@@ -7,7 +7,7 @@ namespace Weather.Services
 {
     public class WeatherForecastServices : IWeatherForecastServices
     {
-        public async Task<AccuWeatherLocationResultDto> AccuWeatherLocationResult(AccuWeatherLocationResultDto dto)
+        public async Task<AccuWeatherLocationResultDto> WeatherResult(AccuWeatherLocationResultDto dto)
         {
             string APIKey = "Ylo9qEmuGDlDcPTgMTImricoQ4A0itQq";
             string url = $"http://dataservice.accuweather.com/locations/v1/cities/search?apikey={APIKey}&q={dto.City}";
@@ -22,18 +22,9 @@ namespace Weather.Services
                 dto.Key = accuResult[0].Key;
 
             }
+            string urlWeather = $"http://dataservice.accuweather.com/forecasts/v1/daily/1day/{dto.Key}?apikey={APIKey}&metric=true";
 
-            
-
-            return dto;
-        }
-        public async Task<WeatherResultDto> WeatherResult(WeatherResultDto dto, AccuWeatherLocationResultDto dto1)
-        {
-            
-            await AccuWeatherLocationResult(dto1);
-
-            string urlWeather = $"http://dataservice.accuweather.com/forecasts/v1/daily/1day/127964?apikey=Ylo9qEmuGDlDcPTgMTImricoQ4A0itQq&metric=true";
-            
+                      
             using (WebClient client = new WebClient())
             {
                 string json = client.DownloadString(urlWeather);
@@ -45,17 +36,33 @@ namespace Weather.Services
                 dto.EffectiveEpochDate = result.Headline.EffectiveEpochDate;
                 dto.Severity = result.Headline.Severity;
                 dto.Text = result.Headline.Text;
-                dto.Date = dailyForecast.Date;
-                dto.Temperature = dailyForecast.Temperature;
-                dto.Day = dailyForecast.Day;
-                dto.Night = dailyForecast.Night;
-                dto.Sources = dailyForecast.Sources;
-                dto.MobileLink = dailyForecast.MobileLink;
-                dto.Link = dailyForecast.Link;
-                dto.Icon = dailyForecast.Day.Icon;
-                dto.IconPhrase = dailyForecast.Day.IconPhrase;
-                dto.HasPrecipitation = dailyForecast.Day.HasPrecipitation;
-                
+                dto.Category = result.Headline.Category;
+                dto.EndDate = result.Headline.EndDate.ToString("yyyy-MM-dd");
+                dto.EndEpochDate = result.Headline.EndEpochDate;
+
+                dto.MobileLink = result.Headline.MobileLink;
+                dto.Link = result.Headline.Link;
+
+                dto.DailyForecastsDate = result.DailyForecasts[0].Date.ToString("yyyy-MM-dd");
+                dto.DailyForecastsEpochDate = result.DailyForecasts[0].EpochDate;
+
+                dto.TempMinValue = result.DailyForecasts[0].Temperature.Minimum.Value;
+                dto.TempMinUnit = result.DailyForecasts[0].Temperature.Minimum.Unit;
+                dto.TempMinUnitType = result.DailyForecasts[0].Temperature.Minimum.UnitType;
+
+                dto.TempMaxValue = result.DailyForecasts[0].Temperature.Maximum.Value;
+                dto.TempMaxUnit = result.DailyForecasts[0].Temperature.Maximum.Unit;
+                dto.TempMaxUnitType = result.DailyForecasts[0].Temperature.Maximum.UnitType;
+
+                dto.DayIcon = result.DailyForecasts[0].Day.Icon;
+                dto.DayIconPhrase = result.DailyForecasts[0].Day.IconPhrase;
+                dto.DayHasPrecipitation = result.DailyForecasts[0].Day.HasPrecipitation;
+                dto.DayPrecipitationType = result.DailyForecasts[0].Day.PrecipitationType;
+                dto.DayPrecipitationIntensity = result.DailyForecasts[0].Day.PrecipitationIntensity;
+
+                dto.NightIcon = result.DailyForecasts[0].Night.Icon;
+                dto.NightIconPhrase = result.DailyForecasts[0].Night.IconPhrase;
+                dto.NightHasPrecipitation = result.DailyForecasts[0].Night.HasPrecipitation;               
 
             }
             return dto;

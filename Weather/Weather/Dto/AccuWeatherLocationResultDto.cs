@@ -7,20 +7,42 @@ namespace Weather.Dto
     {
         public string City { get; set; }
         public string Key { get; set; }
-        public int Version { get; set; }
-
-        public string Type { get; set; }
         public int Rank { get; set; }
-        public string LocalizedName { get; set; }
-        public string EnglishName { get; set; }
-        public string PrimaryPostalCode { get; set; }
-        public Region Region { get; set; }
-        public Country Country { get; set; }
-        public AdministrativeArea AdministrativeArea { get; set; }
-        public TimeZone TimeZone { get; set; }
-        public GeoPosition GeoPosition { get; set; }
-        public bool IsAlias { get; set; }
-        public List<SupplementalAdminArea> SupplementalAdminAreas { get; set; }
-        public List<string> DataSets { get; set; }
+
+
+        public string EffectiveDate { get; set; }
+        public Int64 EffectiveEpochDate { get; set; }
+        public int Severity { get; set; }
+        public string Text { get; set; }
+        public string Category { get; set; }
+        public string EndDate { get; set; }
+        public Int64 EndEpochDate { get; set; }
+
+
+        public string DailyForecastsDate { get; set; }
+        public int DailyForecastsEpochDate { get; set; }
+
+        public double TempMinValue { get; set; }
+        public string TempMinUnit { get; set; }
+        public int TempMinUnitType { get; set; }
+
+        public double TempMaxValue { get; set; }
+        public string TempMaxUnit { get; set; }
+        public int TempMaxUnitType { get; set; }
+
+        public int DayIcon { get; set; }
+        public string DayIconPhrase { get; set; }
+        public bool DayHasPrecipitation { get; set; }
+        public string DayPrecipitationType { get; set; }
+        public string DayPrecipitationIntensity { get; set; }
+
+        public int NightIcon { get; set; }
+        public string NightIconPhrase { get; set; }
+        public bool NightHasPrecipitation { get; set; }
+        public string NightPrecipitationType { get; set; }
+        public string NightPrecipitationIntensity { get; set; }
+
+        public string MobileLink { get; set; }
+        public string Link { get; set; }
     }
 }

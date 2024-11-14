@@ -3,5 +3,6 @@
     public class IndexViewModel
     {
         public string City { get; set; }
+        
     }
 }
